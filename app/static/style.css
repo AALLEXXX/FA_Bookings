@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: 'Inter', sans-serif;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: url('./images/back2.png');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: center center;
+	min-height: 100vh;
+}
+
+.wrapper {
+	flex-direction: column;
+	background: url('./images/bag.png');
+	width: 860px;
+	height: 650px;
+	min-width: 700px;
+	min-height: 500px;
+	background-size: 100% 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.wrapper h1 {
+	font-size: 36px;
+	text-align: center;
+	margin-bottom: 35px;
+	margin-top: 120px;
+}
+
+
+
+.wrapper .input-box {
+	width: 100%;
+	height: 50px;
+	margin: 5px 0;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+    border-radius: 9px;
+    background-color: white;
+} 
+
+
+input:focus {
+    outline: none;
+}
+.input-box input {
+	width: 85%;
+	height: 100%;
+	border: none;
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+
+.wrapper .remember {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 40px;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.remember label {
+	margin-left: 35px;
+}
+.remember a {
+	text-decoration: none;
+	color: #17696c;
+	margin-right: 35px;
+}
+
+.remember a:hover {
+	color: #26969a;
+}
+
+.wrapper .btn-container {
+	display: flex;
+	justify-content: center;
+}
+.wrapper .btn {
+	width: 50%;
+	height: 40px;
+	background: #ff6d3b;
+	margin: 10px;
+	margin-top: 30px;
+	border: none;
+	outline: none;
+	border-radius: 9px;
+	font-size: 15px;
+	color: rgb(255, 255, 255);
+	font-weight: 300;
+}
+
+p {
+	font-weight: 300;
+	margin-left: 10px;
+	margin-top: 20px;
+	text-align: left;
+}
+
+.right_logo {
+	color: #17696c;
+}
+
+.link-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    margin-left: 10px;
+}
+
+.icon {
+	margin-right: 10px;
+}
+
+.wp_icon {
+	margin-top: 4px;
+}
+
+.inline-icon{
+    width: 18px;
+    height: 18px;
+    margin: 0;
+
+}

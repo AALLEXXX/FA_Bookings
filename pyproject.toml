@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "app"
+version = "0.1.0"
+description = ""
+authors = ["AALLEXXX <alxjy@ya.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9.13"
+fastapi = {extras = ["all"], version = "^0.109.0"}
+sqlalchemy = "^2.0.25"
+alembic = "^1.13.1"
+asyncpg = "^0.29.0"
+greenlet = "^3.0.3"
+pydantic-settings = "2.1.0"
+passlib = "^1.7.4"
+bcrypt = "^4.1.2"
+jose = "^1.0.0"
+python-jose = "^3.3.0"
+aiofiles = "^23.2.1"
+python-multipart = "^0.0.7"
+celery = "^5.3.6"
+flower = "^2.0.1"
+pillow = "^10.2.0"
+sqladmin = "^0.16.1"
+fastapi-cache2 = {extras = ["redis"], version = "^0.2.1"}
+pytest-asyncio = "^0.23.5"
+httpx = "^0.27.0"
+git-filter-repo = "^2.38.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
