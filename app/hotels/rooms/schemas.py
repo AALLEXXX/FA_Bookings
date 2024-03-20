@@ -4,7 +4,6 @@ from pydantic import BaseModel
 
 
 class SRoomsSearchArgs(BaseModel):
-    hotel_id: int 
+    hotel_id: int
     date_from: date
     date_to: date
-

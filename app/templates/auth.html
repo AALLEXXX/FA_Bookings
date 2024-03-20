@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Alexandria</title>
-		<link rel="stylesheet" href="../static/style.css" />
 
-	</head>
-	<body>
-		<div class="wrapper">
-                <form action="/ok" method="post" > 
-                    <h1>
-                        <span class="left_logo"> Welcome to </span>
-                         <span class="right_logo"> Alexandria </span> </h1>
-                    <p>Email address</p>
-                    <div class="input-box"> 
-                        <img class='inline-icon' src="../static/images/lettr.png" alt="Your Icon">
-                        <input type="text" placeholder="admin@ya.ru" name="email" required  >
-                    </div>
-                   
-                    <p>Password</p>
-                    <div class="input-box"> 
-                        <img class='inline-icon' src="../static/images/key_logo.png" alt="Your Icon">
-                        <input type="password" placeholder="Enter your password" name="password" required>
-                    </div>
-                    <div class="btn-container">
-                        <button type="submit" class="btn"> sign in</button> 
-                    </div>
-                    
-                    <div class="remember">
-                        <label for="" > <input type="checkbox"> Remember me </label> </input>
-                        <a href="#">Forgot password?</a>
-                    </div>
-                </form>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alexandria</title>
+    <link rel="stylesheet" href="../static/style.css" />
 
-            <div class="link-container">
-                <div class="icon"><img src="../static/images/vk_logo.png" alt="Your Icon"> </div>
-                <div class="icon"><img src="../static/images/tg_logo.png" alt="Your Icon"> </div>
-                <div class="icon wp_icon"><img src="../static/images/wp_logo.png" alt="Your Icon"> </div>
+</head>
+
+<body>
+    <div class="wrapper">
+        <form action="/ok" method="post">
+            <h1>
+                <span class="left_logo"> Welcome to </span>
+                <span class="right_logo"> Alexandria </span>
+            </h1>
+            <p>Email address</p>
+            <div class="input-box">
+                <img class='inline-icon' src="../static/images/lettr.png" alt="Your Icon">
+                <input type="text" placeholder="admin@ya.ru" name="email" required>
             </div>
+
+            <p>Password</p>
+            <div class="input-box">
+                <img class='inline-icon' src="../static/images/key_logo.png" alt="Your Icon">
+                <input type="password" placeholder="Enter your password" name="password" required>
+            </div>
+            <div class="btn-container">
+                <button type="submit" class="btn"> sign in</button>
+            </div>
+
+            <div class="remember">
+                <label for=""> <input type="checkbox"> Remember me </label> </input>
+                <a href="#">Forgot password?</a>
+            </div>
+        </form>
+
+        <div class="link-container">
+            <div class="icon"><img src="../static/images/vk_logo.png" alt="Your Icon"> </div>
+            <div class="icon"><img src="../static/images/tg_logo.png" alt="Your Icon"> </div>
+            <div class="icon wp_icon"><img src="../static/images/wp_logo.png" alt="Your Icon"> </div>
         </div>
-          
-	</body>
+    </div>
+
+</body>
+
 </html>

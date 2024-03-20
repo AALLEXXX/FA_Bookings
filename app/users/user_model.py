@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING
-from sqlalchemy.orm import relationship, mapped_column, Mapped
+
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
 
@@ -8,7 +9,6 @@ if TYPE_CHECKING:
     from bookings.bookings_model import Bookings
 
 
-# Модель написана в соответствии с современным стилем Алхимии (версии 2.x)
 class Users(Base):
     __tablename__ = "users"
 

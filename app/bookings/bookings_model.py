@@ -1,18 +1,18 @@
 from datetime import date
 from typing import TYPE_CHECKING
+
 from sqlalchemy import Column, Computed, Date, ForeignKey, Integer
-from sqlalchemy.orm import relationship, mapped_column, Mapped
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
 
 if TYPE_CHECKING:
-    # Убирает предупреждения отсутствия импорта и неприятные подчеркивания в 
+    # Убирает предупреждения отсутствия импорта и неприятные подчеркивания в
     # PyCharm и VSCode
     from hotels.rooms.rooms_model import Rooms
     from users.user_model import Users
 
 
-# Модель написана в соответствии с современным стилем Алхимии (версии 2.x)
 class Bookings(Base):
     __tablename__ = "bookings"
 
@@ -27,8 +27,6 @@ class Bookings(Base):
 
     user: Mapped["Users"] = relationship(back_populates="bookings")
     room: Mapped["Rooms"] = relationship(back_populates="bookings")
-    
-
 
     def __str__(self):
-        return f'Booking {self.id}'
+        return f"Booking {self.id}"

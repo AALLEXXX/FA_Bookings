@@ -1,6 +1,7 @@
 from datetime import date
+
 from pydantic import BaseModel
-from sqlalchemy.orm import relationship, mapped_column, Mapped
+
 
 class SBookings(BaseModel):
     id: int
@@ -11,15 +12,16 @@ class SBookings(BaseModel):
     price: int
     total_cost: int
     total_days: int
-    
+
     class Config:
         from_attributes = True
 
+
 class SNewBookings(BaseModel):
-    room_id:int
-    date_from : date
+    room_id: int
+    date_from: date
     date_to: date
 
 
 class SDeleteBooking(BaseModel):
-    booking_id : int 
+    booking_id: int

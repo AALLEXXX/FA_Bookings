@@ -1,5 +1,3 @@
-
-
 from dataclasses import dataclass
 from datetime import date
 
@@ -7,8 +5,8 @@ from fastapi import Query
 
 
 @dataclass
-class HotelSearchArgs():
-    location: str 
+class HotelSearchArgs:
+    location: str
     date_from: date
     date_to: date
     has_spa: bool = None
