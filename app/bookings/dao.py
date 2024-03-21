@@ -18,13 +18,13 @@ class BookingDAO(BaseDAO):
         """
         WITH booked_rooms AS (
         SELECT * FROM bookings
-        WHERE room_id = 1 AND
+        WHERE room_id = room_id AND
             (date_from >= '2023-05-15' AND date_from <= '2023-06-20') OR
             (date_from <= '2023-05-15' AND date_to > '2023-05-15')
             )
         SELECT rooms.quantity - COUNT (booked_rooms.room_id) FROM rooms
         LEFT JOIN booked_rooms ON booked_rooms.room_id = rooms.id
-        WHERE rooms.id = 1
+        WHERE rooms.id = room_id
         GROUP BY rooms.quantity, booked_rooms.room_id
         """
 
@@ -71,6 +71,7 @@ class BookingDAO(BaseDAO):
 
         rooms_left = await session.execute(get_rooms_left)
         rooms_left: int = rooms_left.scalar()
+        print(rooms_left)
         return rooms_left
 
     @classmethod
@@ -78,7 +79,7 @@ class BookingDAO(BaseDAO):
         async with async_session_maker() as session:
             rooms_left = await cls.get_rooms_left(session, room_id, date_from, date_to)
 
-            if rooms_left != None:
+            if rooms_left > 0:
                 get_price = select(Rooms.price).filter_by(id=room_id)
                 price = await session.execute(get_price)
                 price: int = price.scalar()
