@@ -1,6 +1,8 @@
 from datetime import date
+from app.custom_logger import logger
 
 from sqlalchemy import and_, delete, func, insert, or_, select
+from sqlalchemy.exc import SQLAlchemyError
 
 from app.bookings.bookings_model import Bookings
 from app.dao.base import BaseDAO
@@ -76,29 +78,45 @@ class BookingDAO(BaseDAO):
 
     @classmethod
     async def add(cls, user_id: int, room_id: int, date_from: date, date_to: date):
-        async with async_session_maker() as session:
-            rooms_left = await cls.get_rooms_left(session, room_id, date_from, date_to)
-
-            if rooms_left > 0:
-                get_price = select(Rooms.price).filter_by(id=room_id)
-                price = await session.execute(get_price)
-                price: int = price.scalar()
-                add_booking = (
-                    insert(Bookings)
-                    .values(
-                        room_id=room_id,
-                        user_id=user_id,
-                        date_from=date_from,
-                        date_to=date_to,
-                        price=price,
-                    )
-                    .returning(Bookings)
+        try:
+            async with async_session_maker() as session:
+                rooms_left = await cls.get_rooms_left(
+                    session, room_id, date_from, date_to
                 )
-                new_booking = await session.execute(add_booking)
-                await session.commit()
-                return new_booking.scalar()
-            else:
-                return None
+
+                if rooms_left > 0:
+                    get_price = select(Rooms.price).filter_by(id=room_id)
+                    price = await session.execute(get_price)
+                    price: int = price.scalar()
+                    add_booking = (
+                        insert(Bookings)
+                        .values(
+                            room_id=room_id,
+                            user_id=user_id,
+                            date_from=date_from,
+                            date_to=date_to,
+                            price=price,
+                        )
+                        .returning(Bookings)
+                    )
+                    new_booking = await session.execute(add_booking)
+                    await session.commit()
+                    return new_booking.scalar()
+                else:
+                    return None
+        except (SQLAlchemyError, Exception) as e:
+            if isinstance(e, SQLAlchemyError):
+                msg = "Database Exc"
+            elif isinstance(e, Exception):
+                msg = "Unknown Exc"
+            msg += " Cannot add booking"
+            extra = {
+                "user_id": user_id,
+                "room_id": room_id,
+                "date_from": date_from,
+                "date_to": date_to,
+            }
+            logger.error(msg, extra=extra, exc_info=True)
 
     @classmethod
     async def find_all(cls, user_id):
