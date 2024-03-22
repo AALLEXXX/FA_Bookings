@@ -6,8 +6,9 @@ authors = ["AALLEXXX <alxjy@ya.ru>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9.13"
 fastapi = {extras = ["all"], version = "^0.109.0"}
+python = "^3.11"
+pycryptodome = "^3.20.0"
 sqlalchemy = "^2.0.25"
 alembic = "^1.13.1"
 asyncpg = "^0.29.0"
@@ -15,8 +16,7 @@ greenlet = "^3.0.3"
 pydantic-settings = "2.1.0"
 passlib = "^1.7.4"
 bcrypt = "^4.1.2"
-jose = "^1.0.0"
-python-jose = "^3.3.0"
+python-jose = {extras = ["pycryptodome"], version = "^3.3.0"}
 aiofiles = "^23.2.1"
 python-multipart = "^0.0.7"
 celery = "^5.3.6"
@@ -29,6 +29,10 @@ git-filter-repo = "^2.38.0"
 isort = "^5.13.2"
 pytest-asyncio = "0.21.0"
 gunicorn = "^21.2.0"
+python-json-logger = "^2.0.7"
+sentry-sdk = {extras = ["fastapi"], version = "^1.43.0"}
+fastapi-versioning = "^0.10.0"
+
 
 
 [build-system]
