@@ -5,11 +5,11 @@ from PIL import Image
 from pydantic import EmailStr
 
 from app.config import settings
-from app.tasks.conf_celery import celery
+from app.tasks.conf_celery import celery_worker
 from app.tasks.email_teplates import create_booking_confirmation_template
 
 
-@celery.task
+@celery_worker.task
 def process_pic(
     path: str,
 ):
@@ -21,7 +21,7 @@ def process_pic(
     im_resized_200_100.save(f"app/static/images/resized_200_100_{im_path.name}")
 
 
-@celery.task
+@celery_worker.task
 def send_booking_confirmation_email(
     booking: dict,
     email_to: EmailStr,
