@@ -57,3 +57,18 @@ class RoomCannotBeBooked(HTTPException):
 
     def __init__(self, detail: Optional[str] = None):
         super().__init__(status_code=self.status_code, detail=detail or self.detail)
+
+
+class RoomCannotBeDeleted(HTTPException):
+    status_code = status.HTTP_404_NOT_FOUND
+    detail = "Не удалось удалить ресурс тк он не найден"
+
+    def __init__(self, detail: Optional[str] = None):
+        super().__init__(status_code=self.status_code, detail=detail or self.detail)
+
+class IncorrectDateForBooking(HTTPException):
+    status_code = status.HTTP_400_BAD_REQUEST
+    detail = "Некорректная дата бронирования"
+
+    def __init__(self, detail: Optional[str] = None):
+        super().__init__(status_code=self.status_code, detail=detail or self.detail)
