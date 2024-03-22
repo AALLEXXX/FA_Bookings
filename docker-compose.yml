@@ -1,0 +1,65 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:15
+    container_name: booking_db
+    env_file:
+      - .env-non-dev
+    ports:
+      - "5434:5432"
+
+  redis:
+    image: redis:7
+    env_file:
+      - .env-non-dev
+    container_name: booking_redis
+  
+  booking:
+    build: 
+      context: .
+    container_name: booking_app
+    env_file:
+      - .env-non-dev
+    depends_on:
+      - db
+      - redis
+    command:  poetry run gunicorn app.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000 && poetry run alembic upgrade head 
+    ports:
+      - "7777:8000"
+  
+  celery:
+    build:
+      context: .
+    container_name: booking_celery
+    env_file:
+      - .env-non-dev
+    depends_on:
+      - redis
+    command: sh -c "poetry run celery -A app.tasks.conf_celery:celery_worker worker --loglevel=INFO"
+  
+  celery_beat:
+    build:
+      context: .
+    container_name: booking_celery_beat
+    env_file:
+      - .env-non-dev
+    depends_on:
+      - redis
+    command: sh -c "poetry run celery -A app.tasks.conf_celery:celery_worker worker --loglevel=INFO -B"
+
+  flower:
+    image: mher/flower
+    build:
+      context: .
+    container_name: booking_flower
+    env_file:
+      - .env-non-dev
+    depends_on:
+      - redis
+    entrypoint:
+      - /bin/sh
+      - docker/start_flower.sh
+    ports:
+      - 5555:5555
+  
