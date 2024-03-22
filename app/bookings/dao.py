@@ -73,7 +73,6 @@ class BookingDAO(BaseDAO):
 
         rooms_left = await session.execute(get_rooms_left)
         rooms_left: int = rooms_left.scalar()
-        print(rooms_left)
         return rooms_left
 
     @classmethod
@@ -101,9 +100,11 @@ class BookingDAO(BaseDAO):
                     )
                     new_booking = await session.execute(add_booking)
                     await session.commit()
-                    return new_booking.scalar()
+                    result = new_booking.scalar()
+                    return result
                 else:
                     return None
+                
         except (SQLAlchemyError, Exception) as e:
             if isinstance(e, SQLAlchemyError):
                 msg = "Database Exc"
@@ -129,6 +130,7 @@ class BookingDAO(BaseDAO):
         async with async_session_maker() as session:
             stmt = (
                 select(
+                    Bookings.id,
                     Bookings.room_id,
                     Bookings.user_id,
                     Bookings.date_from,
@@ -152,7 +154,9 @@ class BookingDAO(BaseDAO):
     async def delete_booking(cls, booking_id, user_id):
         async with async_session_maker() as session:
             stmt = delete(Bookings).where(
-                (Bookings.id == booking_id) & (Bookings.user_id == user_id)
-            )
-        await session.execute(stmt)
-        await session.commit()
+                (Bookings.id == booking_id) & (Bookings.user_id == user_id))
+            result = await session.execute(stmt)
+            await session.commit()
+            if result.rowcount > 0:
+                return True 
+            return False

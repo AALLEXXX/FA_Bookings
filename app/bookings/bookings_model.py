@@ -1,7 +1,7 @@
 from datetime import date
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Column, Computed, Date, ForeignKey, Integer
+from sqlalchemy import CheckConstraint, Column, Computed, Date, ForeignKey, Integer
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
@@ -27,6 +27,10 @@ class Bookings(Base):
 
     user: Mapped["Users"] = relationship(back_populates="bookings")
     room: Mapped["Rooms"] = relationship(back_populates="bookings")
+
+    __table_args__ = (
+        CheckConstraint('date_from < date_to', name='valid_booking_dates'),
+    ) #TODO
 
     def __str__(self):
         return f"Booking {self.id}"
