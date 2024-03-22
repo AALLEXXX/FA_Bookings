@@ -2,5 +2,6 @@ __pycache__/
 *.pyc 
 .env
 .DS_Store
-.poetry.lock
-../poetry.lock
+poetry.lock
+.git
+.env-non-dev
