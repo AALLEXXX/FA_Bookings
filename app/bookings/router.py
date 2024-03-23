@@ -3,12 +3,10 @@ from datetime import date
 from fastapi import APIRouter, Depends
 from typing import Any, List
 from fastapi_versioning import version
-from pydantic import BaseModel
 
-from app.bookings.bookings_model import Bookings
 from app.bookings.dao import BookingDAO
 from app.bookings.schemas import SBookings, SDeleteBooking, SNewBookings
-from app.exeptions import IncorrectDateForBooking, RoomCannotBeBooked, RoomCannotBeDeleted
+from app.exeptions import RoomCannotBeBooked, RoomCannotBeDeleted
 from app.tasks.tasks import send_booking_confirmation_email
 from app.users.dependencies import get_current_user
 from app.users.user_model import Users
@@ -41,7 +39,7 @@ async def add_booking(
     if not booking:
         raise RoomCannotBeBooked
     booking_dict = SBookings.model_validate(booking).model_dump()
-    send_booking_confirmation_email.delay(booking_dict, user.email)
+    # send_booking_confirmation_email.delay(booking_dict, user.email)
     return booking_dict
 
 
