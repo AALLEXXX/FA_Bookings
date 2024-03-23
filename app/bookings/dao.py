@@ -96,11 +96,11 @@ class BookingDAO(BaseDAO):
                             date_to=date_to,
                             price=price,
                         )
-                        .returning(Bookings)
+                        .returning(Bookings.__table__.columns)
                     )
                     new_booking = await session.execute(add_booking)
                     await session.commit()
-                    result = new_booking.scalar()
+                    result = new_booking.mappings().one_or_none()
                     return result
                 else:
                     return None
