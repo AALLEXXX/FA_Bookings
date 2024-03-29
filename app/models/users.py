@@ -6,7 +6,7 @@ from app.database import Base
 
 if TYPE_CHECKING:
     # Убирает предупреждения отсутствия импорта
-    from bookings.bookings_model import Bookings
+    from app.models.bookings import Bookings
 
 
 class Users(Base):

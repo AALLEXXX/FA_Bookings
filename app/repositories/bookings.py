@@ -4,13 +4,13 @@ from app.custom_logger import logger
 from sqlalchemy import and_, delete, func, insert, or_, select
 from sqlalchemy.exc import SQLAlchemyError
 
-from app.bookings.bookings_model import Bookings
-from app.dao.base import BaseDAO
+from app.models.bookings import Bookings
+from app.utils.repository import SQLAlchemyRepository
 from app.database import async_session_maker
-from app.hotels.rooms.rooms_model import Rooms
+from app.models.rooms import Rooms
 
 
-class BookingDAO(BaseDAO):
+class BookingsRepository(SQLAlchemyRepository):
     model = Bookings
 
     @classmethod

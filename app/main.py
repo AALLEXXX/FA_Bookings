@@ -13,15 +13,15 @@ from sqladmin import Admin
 
 from .admin.auth import authentication_backend
 from .admin.views import BookingsAdmin, HotelsAdmin, RoomsAdmin, UsersAdmin
-from .bookings.router import router as router_bookings
+from .api.bookings import router as router_bookings
 from .config import settings
 from .database import engine
-from .hotels.rooms.router import router as rooms_router
+from .api.rooms import router as rooms_router
 from .custom_logger import logger
-from .hotels.router import router as hotel_router
+from .api.hotels import router as hotel_router
 from .pages.router import router as pages_router
 from .static.images.router import router as images_router
-from .users.router import router as router_users
+from .api.users import router as router_users
 
 
 @asynccontextmanager

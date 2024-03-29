@@ -8,8 +8,8 @@ from app.database import Base
 if TYPE_CHECKING:
     # Убирает предупреждения отсутствия импорта и неприятные подчеркивания в
     # PyCharm и VSCode
-    from bookings.bookings_model import Bookings
-    from hotels.hotels_model import Hotels
+    from app.models.bookings import Bookings
+    from app.models.hotels import Hotels
 
 
 class Rooms(Base):

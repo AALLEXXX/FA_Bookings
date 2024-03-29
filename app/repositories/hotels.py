@@ -2,14 +2,14 @@ from datetime import date
 
 from sqlalchemy import func, select
 
-from app.bookings.bookings_model import Bookings
-from app.dao.base import BaseDAO
+from app.models.bookings import Bookings
+from app.utils.repository import SQLAlchemyRepository
 from app.database import async_session_maker
-from app.hotels.hotels_model import Hotels
-from app.hotels.rooms.rooms_model import Rooms
+from app.models.hotels import Hotels
+from app.models.rooms import Rooms
 
 
-class HotelDAO(BaseDAO):
+class HotelsRepository(SQLAlchemyRepository):
     model = Hotels
 
     @classmethod
@@ -57,7 +57,7 @@ class HotelDAO(BaseDAO):
                     & (Bookings.date_to >= date_to),
                     isouter=True,
                 )
-                .filter(Hotels.location.like(f"%{location.capitalize().strip()}%"))
+                .filter(Hotels.location.like(f"%{location.strip().lower().capitalize()}%"))
                 .group_by(Hotels.id, Hotels.rooms_quantity)
             )
             result = await session.execute(stmt)
