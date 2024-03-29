@@ -72,3 +72,10 @@ class IncorrectDateForBooking(HTTPException):
 
     def __init__(self, detail: Optional[str] = None):
         super().__init__(status_code=self.status_code, detail=detail or self.detail)
+
+class CanntDeleteCookies(HTTPException):
+    status_code = status.HTTP_400_BAD_REQUEST
+    detail = ""
+
+    def __init__(self, detail: Optional[str] = None):
+        super().__init__(status_code=self.status_code, detail=detail or self.detail)

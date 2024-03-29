@@ -3,14 +3,14 @@ from datetime import date
 from sqlalchemy import func, select, text
 from sqlalchemy.orm import aliased
 
-from app.bookings.bookings_model import Bookings
-from app.dao.base import BaseDAO
+from app.models.bookings import Bookings
+from app.utils.repository import SQLAlchemyRepository
 from app.database import async_session_maker
-from app.hotels.hotels_model import Hotels
-from app.hotels.rooms.rooms_model import Rooms
+from app.models.hotels import Hotels
+from app.models.rooms import Rooms
 
 
-class RoomDAO(BaseDAO):
+class RoomsRepository(SQLAlchemyRepository):
     model = Rooms
 
     @classmethod

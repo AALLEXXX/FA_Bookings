@@ -9,8 +9,8 @@ from app.database import Base
 if TYPE_CHECKING:
     # Убирает предупреждения отсутствия импорта и неприятные подчеркивания в
     # PyCharm и VSCode
-    from hotels.rooms.rooms_model import Rooms
-    from users.user_model import Users
+    from app.models.rooms import Rooms
+    from app.models.users import Users
 
 
 class Bookings(Base):

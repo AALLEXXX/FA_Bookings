@@ -7,13 +7,13 @@ from fastapi.testclient import TestClient
 from httpx import AsyncClient
 from sqlalchemy import insert
 
-from app.bookings.bookings_model import Bookings
+from app.models.bookings import Bookings
 from app.config import settings
 from app.database import Base, async_session_maker, engine
-from app.hotels.hotels_model import Hotels
-from app.hotels.rooms.rooms_model import Rooms
+from app.models.hotels import Hotels
+from app.models.rooms import Rooms
 from app.main import app as fastapi_app
-from app.users.user_model import Users
+from app.models.users import Users
 
 
 @pytest.fixture(scope="session", autouse=True)

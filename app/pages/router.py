@@ -4,9 +4,9 @@ from fastapi import APIRouter, Depends, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-from app.hotels.router import get_hotels
-from app.users.router import login_user
-from app.users.schemas import SUserRegister
+from app.api.hotels import get_hotels
+from app.api.users import login_user
+from app.schemas.users import SUserRegister
 
 router = APIRouter(tags=["Фронтентд"])
 templates = Jinja2Templates(directory="app/templates")
