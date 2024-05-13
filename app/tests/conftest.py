@@ -3,7 +3,6 @@ import json
 from datetime import datetime
 
 import pytest
-from fastapi.testclient import TestClient
 from httpx import AsyncClient
 from sqlalchemy import insert
 
@@ -14,6 +13,7 @@ from app.models.hotels import Hotels
 from app.models.rooms import Rooms
 from app.main import app as fastapi_app
 from app.models.users import Users
+from app import conftest
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -25,7 +25,7 @@ async def prepare_database():
         await conn.run_sync(Base.metadata.create_all)
 
     def open_mock_json(model: str):
-        with open(f"tests/mock_{model}.json", encoding='utf-8') as file:
+        with open(f"app/tests/mock_{model}.json", encoding='utf-8') as file:
             return json.load(file)
 
     hotels = open_mock_json("hotels")
@@ -69,7 +69,7 @@ async def ac():
 async def authenticated_ac():
     async with AsyncClient(app=fastapi_app, base_url="http://test") as ac:
         await ac.post(
-            "/auth/login", json={"email": "test@test.com", "password": "test"}
+            "v1/auth/login", json={"email": "test@test.com", "password": "test"}
         )
         assert ac.cookies["booking_access_token"]
         yield ac

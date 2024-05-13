@@ -12,8 +12,9 @@ router = APIRouter(prefix="/hotels", tags=["Отели"])
 
 
 @router.get("/{location}", dependencies=[Depends(validate_date)])
-@cache(expire=20)
+# @cache(expire=20)
 async def get_hotels(search_args: HotelSearchArgs = Depends(),
                      hotel_service: HotelsService = Depends(get_hotels_service)
                      ) -> List[SHotelAndRooms]:
     return await hotel_service.get_hotels(search_args=search_args)
+

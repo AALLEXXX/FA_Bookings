@@ -1,27 +1,35 @@
 from datetime import date, timedelta
 from datetime import datetime
-from app.exeptions import IncorrectDateForBooking
+from app.exeptions import IncorrectDate
 
 
-def validate_date(room_id, date_from: date, date_to: date): #TODO
-    
+def validate_date(date_from: date, date_to: date): #qweTODOeqe
+    print(type(date_to))
+    # if date_to is not date:
+    #     raise IncorrectDate(
+    #         "Некорректный формат даты"
+    #     )
+    if not isinstance(date_to, date):
+        raise IncorrectDate(
+            "Некорректный формат даты"
+        )
     if date_from > date_to:
-        raise IncorrectDateForBooking(
-            "Дата начала бронирования не может быть позже даты окончания"
+        raise IncorrectDate(
+            "Дата начала не может быть позже даты окончания"
         )
 
     if date_from < datetime.now().date():
-        raise IncorrectDateForBooking(
-            "Дата начала бронирования не может быть раньше текущей даты"
+        raise IncorrectDate(
+            "Дата начала не может быть раньше текущей даты"
         )
 
     max_booking_duration = timedelta(days=30)
     if date_to > date_from + max_booking_duration:
-        raise IncorrectDateForBooking(
-            "Продолжительность бранирования не может превышать один месяц"
+        raise IncorrectDate(
+            "Продолжительность не может превышать один месяц"
         )
 
     if date_from > datetime.now().date() + max_booking_duration:
-        raise IncorrectDateForBooking(
-            "Дата бронирования не может быть больше текущей даты на 30 дней"
+        raise IncorrectDate(
+            "Дата не может быть больше текущей даты на 30 дней"
         )

@@ -1,10 +1,10 @@
 from datetime import datetime
 
-from app.bookings.dao import BookingDAO
+from app.repositories.bookings import BookingsRepository
 
 
-async def test_add_and_booking():
-    new_booking = await BookingDAO.add(
+async def test_add_and_get_booking():
+    new_booking = await BookingsRepository.add(
         user_id=2,
         room_id=2,
         date_from=datetime.strptime("2023-07-10", "%Y-%m-%d"),
@@ -13,5 +13,5 @@ async def test_add_and_booking():
     assert new_booking.user_id == 2
     assert new_booking.room_id == 2
 
-    new_booking = await BookingDAO.find_by_id(new_booking.id)
+    new_booking = await BookingsRepository.find_by_id(new_booking.id)
     assert new_booking is not None

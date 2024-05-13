@@ -1,6 +1,6 @@
 import pytest
 
-from app.users.dao import UserDAO
+from app.repositories.users import UserRepository
 
 
 @pytest.mark.parametrize(
@@ -12,7 +12,7 @@ from app.users.dao import UserDAO
     ],
 )
 async def test_find_by_id(user_id, email, is_present):
-    user = await UserDAO.find_by_id(user_id)
+    user = await UserRepository.find_by_id(user_id)
     if is_present:
         assert user
         assert user.id == user_id

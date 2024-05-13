@@ -10,7 +10,6 @@ router = APIRouter(
 )
 
 
-
 @router.post('/hotels')
 async def add_hotel_image(name: int, file_to_upload: UploadFile):
     im_path = f"app/static/images/{name}.webp"

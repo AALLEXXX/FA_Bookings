@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 import time
 
 from fastapi import FastAPI, Request
-from fastapi.middleware import Middleware
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
@@ -10,6 +10,7 @@ from fastapi_versioning import VersionedFastAPI
 from redis import asyncio as aioredis
 import sentry_sdk
 from sqladmin import Admin
+# from starlette.middleware.cors import CORSMiddleware
 
 from .admin.auth import authentication_backend
 from .admin.views import BookingsAdmin, HotelsAdmin, RoomsAdmin, UsersAdmin
@@ -49,6 +50,7 @@ app.include_router(pages_router)
 app.include_router(images_router)
 
 
+
 @app.middleware("http")
 async def add_process_time_header(request: Request, call_next):
     start_time = time.time()
@@ -62,11 +64,22 @@ app = VersionedFastAPI(
     app,
     version_format="{major}",
     prefix_format="/v{major}",
-    lifespan=lifespan
+    lifespan=lifespan,
     # description="Greet users with a nice message",
-    # middleware=[Middleware(add_process_time_header, secret_key="mysecretkey")],
+    # middleware=[Middleware(add_process_time_header, secret_key="mysecretkey") ],
 )
 
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 admin = Admin(app, engine, authentication_backend=authentication_backend)
 admin.add_view(UsersAdmin)
@@ -77,3 +90,6 @@ admin.add_view(HotelsAdmin)
 
 app.mount("/app/static", StaticFiles(directory="app/static/"), "/static")
 
+@app.get("/hello")
+async def alex():
+    return {"Hello": "World"}
